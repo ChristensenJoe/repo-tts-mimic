@@ -2,18 +2,16 @@
 using HarmonyLib;
 using BepInEx.Logging;
 using UnityEngine;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.NetworkInformation;
 
-namespace FartMine
+namespace FartGrenade
 {
     [BepInPlugin(modGUID, modName, modVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string modGUID = "Eteli.FartMine";
-        public const string modName = "Fart Mine";
+        public const string modGUID = "Eteli.FartGrenade";
+        public const string modName = "Fart Grenade";
         public const string modVersion = "0.0.1";
 
         private static Harmony _harmony;
@@ -35,15 +33,14 @@ namespace FartMine
             SoundFX = new List<AudioClip>();
 
             string FolderLocation = this.Info.Location;
-            FolderLocation = FolderLocation.TrimEnd("FartMine.dll".ToCharArray());
-            Bundle = AssetBundle.LoadFromFile(FolderLocation + "fartmine");
+            FolderLocation = FolderLocation.TrimEnd("FartGrenade.dll".ToCharArray());
+            Bundle = AssetBundle.LoadFromFile(FolderLocation + "fartgrenade");
             if (Bundle != null)
             {
                 SoundFX = Bundle.LoadAllAssets<AudioClip>().ToList();
 
                 Log.LogInfo("Successfully loaded thge asset bundle");
 
-                Log.LogInfo($"Loaded {SoundFX.Count} sound effects");
             }
             else
             {
