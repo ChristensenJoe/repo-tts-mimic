@@ -4,22 +4,23 @@ using BepInEx.Logging;
 using UnityEngine;
 using System.Collections.Generic;
 using System.Linq;
+using System.IO;
+using System;
 
-namespace FartGrenade
+namespace TTSMimic
 {
     [BepInPlugin(modGUID, modName, modVersion)]
     public class Plugin : BaseUnityPlugin
     {
-        public const string modGUID = "Eteli.FartGrenade";
-        public const string modName = "Fart Grenade";
+        public const string modGUID = "Eteli.TTSMimic";
+        public const string modName = "TTS Mimic";
         public const string modVersion = "0.0.1";
 
         private static Harmony _harmony;
 
         internal static new ManualLogSource Log;
 
-        internal static List<AudioClip> SoundFX;
-        internal static AssetBundle Bundle;
+        internal static string TextFileLocation;
 
         public void Awake()
         {
@@ -29,23 +30,11 @@ namespace FartGrenade
             _harmony = new Harmony(modGUID);
             _harmony.PatchAll();
 
+            TextFileLocation = this.Info.Location;
+            TextFileLocation = TextFileLocation.TrimEnd("TTSMimic.dll".ToCharArray());
+            TextFileLocation += "/TTSMimic.txt";
 
-            SoundFX = new List<AudioClip>();
-
-            string FolderLocation = this.Info.Location;
-            FolderLocation = FolderLocation.TrimEnd("FartGrenade.dll".ToCharArray());
-            Bundle = AssetBundle.LoadFromFile(FolderLocation + "fartgrenade");
-            if (Bundle != null)
-            {
-                SoundFX = Bundle.LoadAllAssets<AudioClip>().ToList();
-
-                Log.LogInfo("Successfully loaded thge asset bundle");
-
-            }
-            else
-            {
-                Log.LogError("Failed to load asset bundle!");
-            }
+            File.AppendAllText(TextFileLocation, "TTSMimic has started!" + Environment.NewLine);
         }
     }
 }

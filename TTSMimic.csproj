@@ -7,8 +7,8 @@
     <ProjectGuid>{E2A18287-7640-480F-AA96-D35A66BB4CBA}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FartGrenade</RootNamespace>
-    <AssemblyName>FartGrenade</AssemblyName>
+    <RootNamespace>TTSMimic</RootNamespace>
+    <AssemblyName>TTSMimic</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>

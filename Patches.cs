@@ -1,15 +1,28 @@
 ﻿using HarmonyLib;
+using System;
+using System.IO;
 
-namespace FartGrenade.Patches
+namespace TTSMimic.Patches
 {
-    [HarmonyPatch(typeof(ItemGrenadeExplosive), "Start")]
-    public class ItemGrenadeExplosivePatch
+    [HarmonyPatch(typeof(RunManager))]
+    public class RunManagerPatch
     {
+        [HarmonyPatch("OnApplicationQuit")]
         [HarmonyPostfix]
-        public static void Postfix(ParticleScriptExplosion ___particleScriptExplosion)
+        public static void Postfix()
         {
-            ___particleScriptExplosion.explosionPreset.explosionSoundBig.Sounds = Plugin.SoundFX.ToArray();
-            ___particleScriptExplosion.explosionPreset.explosionSoundBigGlobal.Sounds = Plugin.SoundFX.ToArray();
+            File.WriteAllText(Plugin.TextFileLocation, String.Empty);
+        }
+    }
+
+    [HarmonyPatch(typeof(PlayerAvatar))]
+    public class PlayerAvatarPatch
+    {
+        [HarmonyPatch("ChatMessageSend")]
+        [HarmonyPostfix]
+        public static void Postfix(string _message)
+        {
+            File.AppendAllText(Plugin.TextFileLocation, _message + Environment.NewLine);
         }
     }
 }
